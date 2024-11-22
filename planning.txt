@@ -1,0 +1,5 @@
+Things we need to do:
+
+Testing
+initialise database 
+- 
