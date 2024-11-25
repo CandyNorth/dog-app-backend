@@ -1,3 +1,2 @@
-// example:
-// exports.articleData = require('./articles.js');
-//rewuire in all of the js files in your folder here with a nice little variable
+exports.users = require("./users.js");
+exports.dogPictures = require("./dog-pictures.js");
