@@ -1,0 +1,6 @@
+ user_id |  username  |      email       |         created_at         
+---------+------------+------------------+----------------------------
+       1 | dog_lover1 | dog1@email.com   | 2024-11-18 15:53:54.065227
+       2 | puppy_fan2 | puppy2@email.com | 2024-11-18 15:53:54.065227
+(2 rows)
+
