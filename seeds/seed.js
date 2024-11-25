@@ -1,6 +1,6 @@
 const format = require("pg-format");
 const db = require("../connection");
-const { convertTimestampToDate, createRef } = require("./utils");
+const { convertTimestampToDate } = require("./utils");
 
 const seed = ({ users, dogPictures }) => {
   return db
@@ -53,4 +53,10 @@ const seed = ({ users, dogPictures }) => {
       const dogPicturesPromise = db.query(insertdogPicturesQueryStr)
       return Promise.all([usersPromise, dogPicturesPromise])
     })
+    .catch(error => {
+      console.error('Error while seeding database:', error);
+      throw error;
+    })
 };
+
+module.exports = seed;
