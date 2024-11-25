@@ -11,14 +11,16 @@ const seed = ({ users, dogPictures }) => {
     .then(() => {
       const usersTablePromise = db.query(
         `
-    CREATE TABLE users (
-        user_id SERIAL PRIMARY KEY,
-        username VARCHAR(50) UNIQUE NOT NULL,
-        email VARCHAR(100) UNIQUE NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        CREATE TABLE users (
+          user_id SERIAL PRIMARY KEY,
+          username VARCHAR(50) UNIQUE NOT NULL,
+          email VARCHAR(100) UNIQUE NOT NULL,
+          created_at TIMESTAMP DEFAULT NOW() NOT NULL
       );`
       );
-
+      return usersTablePromise
+    })
+    .then(() => {
       const dogPicturesTablePromise = db.query(`
         CREATE TABLE dog_pictures (
           picture_id SERIAL PRIMARY KEY,
@@ -30,49 +32,50 @@ const seed = ({ users, dogPictures }) => {
           first_guess_confidence FLOAT,
           second_guess_confidence FLOAT,
           third_guess_confidence FLOAT,
-          uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          uploaded_at TIMESTAMP DEFAULT NOW() NOT NULL
     );`);
-      return Promise.all([usersTablePromise, dogPicturesTablePromise]);
+        return dogPicturesTablePromise
     })
+     
     .then(() => {
       const formattedUsers = users.map(convertTimestampToDate);
       const insertUsersQueryStr = format(
-        "INSERT INTO users (username, email, created_at) VALUES %L;",
-        formattedUsers.map(({ username, email, created_at }) => [
+        "INSERT INTO users (username, email) VALUES %L;",
+        formattedUsers.map(({ username, email }) => [
           username,
           email,
-          created_at,
         ])
       );
-      const usersPromise = db.query(insertUsersQueryStr);
-      const formattedDogPics = dogPictures.map(convertTimestampToDate);
-      const insertdogPicturesQueryStr = format(
-        "INSERT INTO dog_pictures (user_id, image_url, first_guess_breed, second_guess_breed, third_guess_breed, first_guess_confidence, second_guess_confidence, third_guess_confidence) VALUES %L;",
-        formattedDogPics.map(
-          ({
-            user_id,
-            image_url,
-            first_guess_breed,
-            second_guess_breed,
-            third_guess_breed,
-            first_guess_confidence,
-            second_guess_confidence,
-            third_guess_confidence,
-          }) => [
-            user_id,
-            image_url,
-            first_guess_breed,
-            second_guess_breed,
-            third_guess_breed,
-            first_guess_confidence,
-            second_guess_confidence,
-            third_guess_confidence,
-          ]
-        )
-      );
-      const dogPicturesPromise = db.query(insertdogPicturesQueryStr);
-      return Promise.all([usersPromise, dogPicturesPromise]);
+      return db.query(insertUsersQueryStr);
     })
+      .then(() => {
+        const formattedDogPics = dogPictures.map(convertTimestampToDate);
+        const insertdogPicturesQueryStr = format(
+          "INSERT INTO dog_pictures (user_id, image_url, first_guess_breed, second_guess_breed, third_guess_breed, first_guess_confidence, second_guess_confidence, third_guess_confidence) VALUES %L;",
+          formattedDogPics.map(
+            ({
+              user_id,
+              image_url,
+              first_guess_breed,
+              second_guess_breed,
+              third_guess_breed,
+              first_guess_confidence,
+              second_guess_confidence,
+              third_guess_confidence,
+            }) => [
+              user_id,
+              image_url,
+              first_guess_breed,
+              second_guess_breed,
+              third_guess_breed,
+              first_guess_confidence,
+              second_guess_confidence,
+              third_guess_confidence,
+            ]
+          )
+        );
+        return db.query(insertdogPicturesQueryStr);
+      })
     .catch((error) => {
       console.error("Error while seeding database:", error);
       throw error;
