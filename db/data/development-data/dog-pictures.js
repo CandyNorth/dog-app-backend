@@ -25,7 +25,7 @@ module.exports = [
     user_id: 2,
     image_url:
       "https://dog-breed-id-ml-model.s3.us-east-1.amazonaws.com/userPhotos/images.jpeg",
-    first_guess_breed: "black",
+    first_guess_breed: "black_and_tan_coonhound",
     second_guess_breed: "redbone",
     third_guess_breed: "vizsla",
     first_guess_confidence: 80.71,
