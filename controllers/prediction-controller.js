@@ -1,11 +1,7 @@
 const FormData = require("form-data");
+const axios = require("axios");
 const { uploadToS3 } = require("../db/seeds/utils");
 const { insertDogPicture } = require("../models/dog-pics-models");
-
-let fetch;
-import("node-fetch").then((module) => {
-  fetch = module.default;
-});
 
 const DEV_USER_ID = 1;
 
@@ -25,11 +21,10 @@ exports.predictBreed = async (req, res) => {
       contentType: "image/jpeg",
     });
 
-    const result = await fetch(
+    const result = await axios.post(
       "https://sorei9240-dog-id-api.hf.space/predict",
+      formData,
       {
-        method: "POST",
-        body: formData,
         headers: {
           Accept: "application/json",
           ...formData.getHeaders(),
@@ -37,12 +32,7 @@ exports.predictBreed = async (req, res) => {
       }
     );
 
-    if (!result.ok) {
-      const error = await result.text();
-      throw new Error(error);
-    }
-
-    const { predictions } = await result.json();
+    const { predictions } = result.data;
 
     const dbResult = await insertDogPicture({
       userId,

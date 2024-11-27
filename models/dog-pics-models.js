@@ -31,3 +31,24 @@ exports.selectAllDogPics = () => {
     return result.rows;
   });
 };
+
+exports.selectDogPicById = (pictureId) => {
+    return db.query(
+        'SELECT picture_id, first_guess_breed, first_guess_confidence FROM dog_pictures WHERE picture_id = $1;',
+        [pictureId]
+    ).then((result) => {
+        if (result.rows.length === 0) {
+            return Promise.reject({ status: 404, msg: 'Dog picture not found' });
+        }
+        return result.rows[0];
+    });
+};
+
+exports.selectDogPicsByUserId = (userId) => {
+    return db.query(
+        'SELECT picture_id, user_id, first_guess_breed, first_guess_confidence FROM dog_pictures WHERE user_id = $1;',
+        [userId]
+    ).then((result) => {
+        return result.rows;
+    });
+};
