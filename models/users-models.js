@@ -131,3 +131,17 @@ exports.selectUserMonthlyStats = (userId, monthYear) => {
             return result.rows[0];
         });
 };
+
+exports.updateUserAvatar = (userId, avatarUrl) => {
+    return db
+      .query(
+        'UPDATE users SET avatar_url = $1 WHERE user_id = $2 RETURNING *;',
+        [avatarUrl, userId]
+      )
+      .then((result) => {
+        if (result.rows.length === 0) {
+          return Promise.reject({ status: 404, msg: 'User not found' });
+        }
+        return result.rows[0];
+      });
+  };

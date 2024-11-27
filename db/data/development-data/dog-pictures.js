@@ -43,4 +43,37 @@ module.exports = [
     second_guess_confidence: 27.89,
     third_guess_confidence: 17.05,
   },
+  {
+    user_id: 3,
+    image_url:
+      "https://dog-breed-id-ml-model.s3.us-east-1.amazonaws.com/userPhotos/Harrier-black-brown-1024x683.jpg",
+    first_guess_breed: "beagle",
+    second_guess_breed: "English_foxhound",
+    third_guess_breed: "bluetick",
+    first_guess_confidence: 97.3,
+    second_guess_confidence: 0.73,
+    third_guess_confidence: 0.43,
+  },
+  {
+    user_id: 3,
+    image_url:
+      "https://dog-breed-id-ml-model.s3.us-east-1.amazonaws.com/userPhotos/Golden_Retriever_Dukedestiny01_drvd.jpg",
+    first_guess_breed: "golden_retriever",
+    second_guess_breed: "kuvasz",
+    third_guess_breed: "Labrador_retriever",
+    first_guess_confidence: 80.31,
+    second_guess_confidence: 10.23,
+    third_guess_confidence: 1.33,
+  },
+  {
+    user_id: 3,
+    image_url:
+      "https://dog-breed-id-ml-model.s3.us-east-1.amazonaws.com/userPhotos/Untitled-design--1--1.jpg",
+    first_guess_breed: "Labrador_retriever",
+    second_guess_breed: "flat_coated_retriever",
+    third_guess_breed: "golden_retriever",
+    first_guess_confidence: 66.2,
+    second_guess_confidence: 28.03,
+    third_guess_confidence: 2.07,
+  },
 ];

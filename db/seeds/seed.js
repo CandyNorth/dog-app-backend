@@ -15,6 +15,7 @@ const seed = ({ users, dogPictures }) => {
           user_id SERIAL PRIMARY KEY,
           username VARCHAR(50) UNIQUE NOT NULL,
           email VARCHAR(100) UNIQUE NOT NULL,
+          avatar_url TEXT DEFAULT 'https://dog-breed-id-ml-model.s3.us-east-1.amazonaws.com/avatars/default-avatar.jpg' NOT NULL,
           created_at TIMESTAMP DEFAULT NOW() NOT NULL
       );`
       );

@@ -25,9 +25,9 @@ const generateUniqueFileName = (originalName) => {
   return `${timestamp}-${randomString}.${extension}`;
 };
 
-exports.uploadToS3 = async (fileBuffer, originalFilename) => {
+exports.uploadToS3 = async (fileBuffer, originalFilename, folder = 'userPhotos') => {
   const fileName = generateUniqueFileName(originalFilename);
-  const s3Key = `userPhotos/${fileName}`;
+  const s3Key = `${folder}/${fileName}`;
 
   const params = {
     Bucket: "dog-breed-id-ml-model",

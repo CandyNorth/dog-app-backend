@@ -20,6 +20,7 @@ describe('GET /api/users', () => {
                         user_id: expect.any(Number),
                         username: expect.any(String),
                         email: expect.any(String),
+                        avatar_url: expect.any(String),
                         created_at: expect.any(String)
                     }))
                 })
@@ -38,6 +39,7 @@ describe('GET /api/users/:user_id', () => {
                         user_id: 1,
                         username: expect.any(String),
                         email: expect.any(String),
+                        avatar_url: expect.any(String),
                         created_at: expect.any(String)
                     })
                 )
@@ -143,7 +145,6 @@ describe('GET /api/dog_pictures/user/:user_id', () => {
                     expect(dog_picture).not.toHaveProperty('second_guess_breed');
                     expect(dog_picture).not.toHaveProperty('third_guess_breed');
                 });
-                // Check all pictures belong to user 1
                 const allBelongToUser = response.body.dog_pictures.every(
                     (picture) => picture.user_id === 1
                 );
@@ -323,4 +324,3 @@ describe('GET /api/users/:user_id/stats/:month_year', () => {
             });
     });
 });
-
