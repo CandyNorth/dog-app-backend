@@ -34,7 +34,7 @@ exports.selectAllDogPics = () => {
 
 exports.selectDogPicById = (pictureId) => {
     return db.query(
-        'SELECT picture_id, first_guess_breed, first_guess_confidence FROM dog_pictures WHERE picture_id = $1;',
+        'SELECT picture_id, first_guess_breed, first_guess_confidence, image_url FROM dog_pictures WHERE picture_id = $1;',
         [pictureId]
     ).then((result) => {
         if (result.rows.length === 0) {
@@ -46,7 +46,7 @@ exports.selectDogPicById = (pictureId) => {
 
 exports.selectDogPicsByUserId = (userId) => {
     return db.query(
-        'SELECT picture_id, user_id, first_guess_breed, first_guess_confidence FROM dog_pictures WHERE user_id = $1;',
+        'SELECT picture_id, user_id, first_guess_breed, first_guess_confidence, image_url FROM dog_pictures WHERE user_id = $1;',
         [userId]
     ).then((result) => {
         return result.rows;

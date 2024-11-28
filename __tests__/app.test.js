@@ -77,6 +77,7 @@ describe('GET /api/dog_pictures', () => {
                     expect(dog_picture).toEqual(expect.objectContaining({
                         picture_id: expect.any(Number),
                         user_id: expect.any(Number),
+                        image_url: expect.any(String),
                         first_guess_breed: expect.any(String),
                         second_guess_breed: expect.any(String),
                         third_guess_breed: expect.any(String),
@@ -100,7 +101,8 @@ describe('GET /api/dog_pictures/:picture_id', () => {
                     expect.objectContaining({
                         picture_id: 1,
                         first_guess_breed: expect.any(String),
-                        first_guess_confidence: expect.any(Number)
+                        first_guess_confidence: expect.any(Number),
+                        image_url: expect.any(String)
                     })
                 );
                 expect(response.body.dog_picture).not.toHaveProperty('second_guess_breed');
