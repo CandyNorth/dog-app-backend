@@ -4,15 +4,11 @@ const { uploadToS3 } = require("../db/seeds/utils");
 const { insertDogPicture } = require("../models/dog-pics-models");
 
 exports.predictBreed = async (req, res) => {
-  console.log('Request body:', req.body);
-  console.log('Request file:', req.file);
-  console.log('User ID from form:', req.body.user_id);
-  if (!req.file) {
+   if (!req.file) {
     return res.status(400).json({ error: "No image file provided" });
   }
-
   try {
-    const userId = req.body.user_id || req.body.userId || req.user?.id
+    const userId = req.body.user_id 
 
     const imageUrl = await uploadToS3(req.file.buffer, req.file.originalname);
 
