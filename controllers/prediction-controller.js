@@ -11,7 +11,7 @@ exports.predictBreed = async (req, res) => {
   }
 
   try {
-    const userId = req.user?.id || DEV_USER_ID;
+    const userId = req.body.user_id || req.user?.id || DEV_USER_ID;
 
     const imageUrl = await uploadToS3(req.file.buffer, req.file.originalname);
 
