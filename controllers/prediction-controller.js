@@ -6,6 +6,9 @@ const { insertDogPicture } = require("../models/dog-pics-models");
 const DEV_USER_ID = 1;
 
 exports.predictBreed = async (req, res) => {
+  console.log('Request body:', req.body);
+  console.log('Request file:', req.file);
+  console.log('User ID from form:', req.body.user_id);
   if (!req.file) {
     return res.status(400).json({ error: "No image file provided" });
   }
