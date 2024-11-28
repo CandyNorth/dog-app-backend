@@ -94,7 +94,7 @@ describe('GET /api/dog_pictures', () => {
 describe('GET /api/users/:email', () => {
     it('responds with a 200 status and a single user object', () => {
         return request(app)
-            .get('/api/users/user/hvisconti1343@gmail.com')
+            .get('/api/users/email/hvisconti1343@gmail.com')
             .expect(200)
             .then((response) => {
                 expect(response.body.user).toEqual(
