@@ -3,8 +3,6 @@ const axios = require("axios");
 const { uploadToS3 } = require("../db/seeds/utils");
 const { insertDogPicture } = require("../models/dog-pics-models");
 
-const DEV_USER_ID = 1;
-
 exports.predictBreed = async (req, res) => {
   console.log('Request body:', req.body);
   console.log('Request file:', req.file);
@@ -14,7 +12,7 @@ exports.predictBreed = async (req, res) => {
   }
 
   try {
-    const userId = req.body.user_id || req.user?.id || DEV_USER_ID;
+    const userId = req.body.user_id || req.body.userId || req.user?.id
 
     const imageUrl = await uploadToS3(req.file.buffer, req.file.originalname);
 
