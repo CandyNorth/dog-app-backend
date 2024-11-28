@@ -7,7 +7,8 @@ const {
     selectMonthlyLeaderboard,
     selectUserMonthlyStats,
     updateUserAvatar,
-    selectUserByEmail
+    selectUserByEmail,
+    selectUserByFirebase
 } = require('../models/users-models');
 
 exports.getUsers = (req, res, next) => {
@@ -30,6 +31,15 @@ exports.getUserById = (req, res, next) => {
 exports.getUserByEmail = (req, res, next) => {
     const { email } = req.params;
     selectUserByEmail(email)
+        .then((user) => {
+            res.status(200).json({ user });
+        })
+        .catch(next);
+};
+
+exports.getUserByFirebase = (req, res, next) => {
+    const { firebase } = req.params;
+    selectUserByFirebase(firebase)
         .then((user) => {
             res.status(200).json({ user });
         })

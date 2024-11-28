@@ -26,6 +26,15 @@ exports.selectUserByEmail = (email) => {
             return result.rows[0];
         });
 }
+exports.selectUserByFirebase = (firebase) => {
+    return db.query('SELECT * FROM users WHERE firebase = $1;', [firebase])
+        .then((result) => {
+            if (result.rows.length === 0) {
+                return Promise.reject({ status: 404, msg: 'User not found' });
+            }
+            return result.rows[0];
+        });
+}
 
 exports.selectUserStats = (userId) => {
     const query = `

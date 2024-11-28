@@ -94,15 +94,35 @@ describe('GET /api/dog_pictures', () => {
 describe('GET /api/users/:email', () => {
     it('responds with a 200 status and a single user object', () => {
         return request(app)
-            .get('/api/users/email/hvisconti1343@gmail.com')
+            .get('/api/users/email/test1@gmail.com')
             .expect(200)
             .then((response) => {
                 expect(response.body.user).toEqual(
                     expect.objectContaining({
-                        user_id: 3,
-                        username: 'haley',
-                        email: 'hvisconti1343@gmail.com',
+                        user_id: 5,
+                        username: 'user2',
+                        email: 'test1@gmail.com',
                         firebase: expect.any(String),
+                        avatar_url: expect.any(String),
+                        created_at: expect.any(String)
+                    })
+                )
+            })
+    });
+});
+
+describe('GET /api/firebase/:firebase', () => {
+    it('responds with a 200 status and a single user object', () => {
+        return request(app)
+            .get('/api/users/firebase/I83ZbkWTUpXTmyetxssz20DAxD63')
+            .expect(200)
+            .then((response) => {
+                expect(response.body.user).toEqual(
+                    expect.objectContaining({
+                        user_id: 5,
+                        username: 'user2',
+                        email: 'test1@gmail.com',
+                        firebase: "I83ZbkWTUpXTmyetxssz20DAxD63",
                         avatar_url: expect.any(String),
                         created_at: expect.any(String)
                     })
