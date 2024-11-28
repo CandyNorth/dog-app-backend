@@ -6,7 +6,8 @@ const {
     selectLeaderboard,
     selectMonthlyLeaderboard,
     selectUserMonthlyStats,
-    updateUserAvatar
+    updateUserAvatar,
+    selectUserByEmail
 } = require('../models/users-models');
 
 exports.getUsers = (req, res, next) => {
@@ -20,6 +21,15 @@ exports.getUsers = (req, res, next) => {
 exports.getUserById = (req, res, next) => {
     const { user_id } = req.params;
     selectUserById(user_id)
+        .then((user) => {
+            res.status(200).json({ user });
+        })
+        .catch(next);
+};
+
+exports.getUserByEmail = (req, res, next) => {
+    const { email } = req.params;
+    selectUserByEmail(email)
         .then((user) => {
             res.status(200).json({ user });
         })

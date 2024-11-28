@@ -91,6 +91,26 @@ describe('GET /api/dog_pictures', () => {
     })
 });
 
+describe('GET /api/users/:email', () => {
+    it('responds with a 200 status and a single user object', () => {
+        return request(app)
+            .get('/api/users/user/hvisconti1343@gmail.com')
+            .expect(200)
+            .then((response) => {
+                expect(response.body.user).toEqual(
+                    expect.objectContaining({
+                        user_id: 3,
+                        username: 'haley',
+                        email: 'hvisconti1343@gmail.com',
+                        firebase: expect.any(String),
+                        avatar_url: expect.any(String),
+                        created_at: expect.any(String)
+                    })
+                )
+            })
+    });
+});
+
 describe('GET /api/dog_pictures/:picture_id', () => {
     it('responds with a 200 status and a single dog picture object with first guess only', () => {
         return request(app)

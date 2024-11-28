@@ -6,7 +6,8 @@ const {
     getLeaderboard,
     getMonthlyLeaderboard,
     getUserMonthlyStats,
-    patchUserAvatar
+    patchUserAvatar,
+    getUserByEmail
 } = require('../controllers/users-controllers');
 const multer = require("multer");
 const upload = multer({
@@ -17,6 +18,7 @@ const upload = multer({
 usersRouter.get('/', getUsers);
 usersRouter.get('/leaderboard', getLeaderboard);
 usersRouter.get('/:user_id', getUserById);
+usersRouter.get('/user/:email', getUserByEmail)
 usersRouter.get('/:user_id/stats', getUserStats);
 usersRouter.patch('/:user_id/avatar', upload.single('avatar'), patchUserAvatar);
 

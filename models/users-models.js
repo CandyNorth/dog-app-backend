@@ -17,6 +17,16 @@ exports.selectUserById = (userId) => {
         });
 }
 
+exports.selectUserByEmail = (email) => {
+    return db.query('SELECT * FROM users WHERE email = $1;', [email])
+        .then((result) => {
+            if (result.rows.length === 0) {
+                return Promise.reject({ status: 404, msg: 'User not found' });
+            }
+            return result.rows[0];
+        });
+}
+
 exports.selectUserStats = (userId) => {
     const query = `
         SELECT 

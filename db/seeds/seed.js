@@ -15,6 +15,7 @@ const seed = ({ users, dogPictures }) => {
           user_id SERIAL PRIMARY KEY,
           username VARCHAR(50) UNIQUE NOT NULL,
           email VARCHAR(100) UNIQUE NOT NULL,
+          firebase VARCHAR(100) UNIQUE NOT NULL,
           avatar_url TEXT DEFAULT 'https://dog-breed-id-ml-model.s3.us-east-1.amazonaws.com/avatars/default-avatar.jpg' NOT NULL,
           created_at TIMESTAMP DEFAULT NOW() NOT NULL
       );`
@@ -41,10 +42,11 @@ const seed = ({ users, dogPictures }) => {
     .then(() => {
       const formattedUsers = users.map(convertTimestampToDate);
       const insertUsersQueryStr = format(
-        "INSERT INTO users (username, email) VALUES %L;",
-        formattedUsers.map(({ username, email }) => [
+        "INSERT INTO users (username, email, firebase) VALUES %L;",
+        formattedUsers.map(({ username, email, firebase }) => [
           username,
           email,
+          firebase,
         ])
       );
       return db.query(insertUsersQueryStr);
