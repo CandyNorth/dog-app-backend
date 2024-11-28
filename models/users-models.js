@@ -64,6 +64,7 @@ exports.selectLeaderboard = () => {
         SELECT 
             u.user_id,
             u.username,
+            u.avatar_url,
             CAST(COUNT(DISTINCT dp.picture_id) AS INTEGER) as total_pictures,
             CAST(COUNT(DISTINCT dp.first_guess_breed) AS INTEGER) as unique_breeds_found,
             CAST(COUNT(DISTINCT dp.picture_id) * COUNT(DISTINCT dp.first_guess_breed) AS INTEGER) as score

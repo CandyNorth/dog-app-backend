@@ -267,6 +267,7 @@ describe('GET /api/users/leaderboard', () => {
                         expect.objectContaining({
                             user_id: expect.any(Number),
                             username: expect.any(String),
+                            avatar_url: expect.any(String),
                             total_pictures: expect.any(Number),
                             unique_breeds_found: expect.any(Number),
                             score: expect.any(Number)
